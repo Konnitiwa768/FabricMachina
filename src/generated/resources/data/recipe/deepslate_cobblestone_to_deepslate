@@ -1,0 +1,10 @@
+{
+  "type": "fabricmachina:electronic_shape",
+  "input": {
+    "item": "minecraft:deepslate_cobblestone"
+  },
+  "output": {
+    "item": "minecraft:deepslate",
+    "count": 2
+  }
+}
