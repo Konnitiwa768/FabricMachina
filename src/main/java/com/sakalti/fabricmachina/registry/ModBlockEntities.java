@@ -9,7 +9,7 @@ import com.sakalti.fabricmachina.block.*;
 
 public class ModBlockEntities {
     public static BlockEntityType<WaterGeneratorBlock.GeneratorEntity> WATER_GENERATOR;
-    public static BlockEntityType<EletronicShaperBlock.EletronicShaperEntity> ELECTRONIC_SHAPER;
+    public static BlockEntityType<EletronicShaperBlock.EletronicShaperBlockEntity> ELECTRONIC_SHAPER;
     public static BlockEntityType<CrusherBlock.CrusherEntity> CRUSHER;
     public static BlockEntityType<PowerPipeBlock.PipeEntity> POWER_PIPE;
     public static BlockEntityType<ThermalGeneratorBlock.ThermalGeneratorEntity> THERMAL_GENERATOR = BlockEntityType.Builder.create(ThermalGeneratorBlock.ThermalGeneratorEntity::new, Blocks.STONE).build(null);
