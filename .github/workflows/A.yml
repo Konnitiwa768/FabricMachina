@@ -1,0 +1,30 @@
+name: ファイル名置き換え
+
+on:
+  push:
+    branches:
+     - main
+
+jobs:
+  replace-text:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v3
+
+      - name: ターゲットディレクトリを作成
+        run: mkdir -p src/main/resources/fabricmachina/data/recipe
+
+      - name: ファイルを移動
+        run: mv src/generated/resources/data/recipe src/main/resources/fabricmachina/data/recipe
+
+      - name: 変更をコミット
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "置き換え"
+          git push https://github.com/${{ github.repository }}.git HEAD:${{ github.ref }} --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
