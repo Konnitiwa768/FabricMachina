@@ -1,0 +1,10 @@
+{
+  "type": "fabricmachina:electronic_shape",
+  "input": {
+    "item": "minecraft:andesite"
+  },
+  "output": {
+    "item": "minecraft:polished_andesite",
+    "count": 1
+  }
+}
