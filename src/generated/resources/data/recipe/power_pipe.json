@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "",
+    "XYX",
+    ""
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:glass"
+    },
+    "Y": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "fabricmachina:power_pipe",
+    "count": 4
+  }
+}
