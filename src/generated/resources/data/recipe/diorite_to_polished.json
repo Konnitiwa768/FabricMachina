@@ -1,0 +1,10 @@
+{
+  "type": "fabricmachina:electronic_shape",
+  "input": {
+    "item": "minecraft:diorite"
+  },
+  "output": {
+    "item": "minecraft:polished_diorite",
+    "count": 1
+  }
+}
