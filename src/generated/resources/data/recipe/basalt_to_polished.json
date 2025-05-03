@@ -1,0 +1,10 @@
+{
+  "type": "fabricmachina:electronic_shape",
+  "input": {
+    "item": "minecraft:basalt"
+  },
+  "output": {
+    "item": "minecraft:polished_basalt",
+    "count": 2
+  }
+}
