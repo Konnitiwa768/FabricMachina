@@ -3,16 +3,19 @@ package com.sakalti.fabricmachina.block;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.screen.*;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.util.math.Direction;
-import net.minecraft.text.Text;
 
+import com.sakalti.fabricmachina.registry.ModBlockEntities;
+import com.sakalti.fabricmachina.screen.CrusherScreenHandler;
 import com.sakalti.fabricmachina.energy.MachinaEnergy;
 
 public class CrusherBlock extends Block implements BlockEntityProvider {
@@ -37,11 +40,10 @@ public class CrusherBlock extends Block implements BlockEntityProvider {
         };
     }
 
-    public static class CrusherEntity extends BlockEntity {
+    public static class CrusherEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+        private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         private final MachinaEnergy energy = new MachinaEnergy(3000, 100, 0);
         private int progress = 0;
-        private ItemStack input = ItemStack.EMPTY;
-        private ItemStack output = ItemStack.EMPTY;
 
         public CrusherEntity(BlockPos pos, BlockState state) {
             super(ModBlockEntities.CRUSHER, pos, state);
@@ -50,30 +52,49 @@ public class CrusherBlock extends Block implements BlockEntityProvider {
         public void tick() {
             if (world == null || world.isClient) return;
 
-            // 仮のチェック: 常にTQ5以上供給されていると仮定
             if (energy.getTq() < 5 || energy.getRf() < 300) return;
 
-            if (!input.isEmpty()) {
+            ItemStack input = inventory.get(0);
+            if (!input.isEmpty() && inventory.get(1).isEmpty()) {
                 progress++;
                 if (progress >= 200) {
-                    progress = 0;
                     if (energy.consumeRf(300)) {
-                        output = new ItemStack(input.getItem(), 2);
-                        input = ItemStack.EMPTY;
+                        inventory.set(0, ItemStack.EMPTY);
+                        inventory.set(1, new ItemStack(input.getItem(), 2));
                         markDirty();
                     }
+                    progress = 0;
                 }
+            } else {
+                progress = 0;
             }
         }
 
-        public void insertItem(ItemStack stack) {
-            if (input.isEmpty()) input = stack.copyWithCount(1);
+        @Override
+        public void writeNbt(NbtCompound nbt) {
+            super.writeNbt(nbt);
+            Inventories.writeNbt(nbt, inventory);
         }
 
-        public ItemStack extractOutput() {
-            ItemStack out = output;
-            output = ItemStack.EMPTY;
-            return out;
+        @Override
+        public void readNbt(NbtCompound nbt) {
+            super.readNbt(nbt);
+            Inventories.readNbt(nbt, inventory);
+        }
+
+        @Override
+        public Text getDisplayName() {
+            return Text.literal("Crusher");
+        }
+
+        @Override
+        public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+            return new CrusherScreenHandler(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }
+
+        @Override
+        public DefaultedList<ItemStack> getItems() {
+            return inventory;
         }
 
         public MachinaEnergy getEnergy() {
