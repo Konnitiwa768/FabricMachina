@@ -2,7 +2,8 @@ package com.sakalti.fabricmachina;
 
 import net.fabricmc.api.ModInitializer;
 
-import com.sakalti.fabricmachina.registry.ModBlocks;
+import com.sakalti.fabricmachina.block.ModBlocks;
+import com.sakalti.fabricmachina.recipe.ModRecipeTypes;
 import com.sakalti.fabricmachina.registry.ModBlockEntities;
 
 public class ModMain implements ModInitializer {
@@ -12,5 +13,6 @@ public class ModMain implements ModInitializer {
     public void onInitialize() {
         ModBlocks.register();
         ModBlockEntities.register();
+        ModRecipeTypes.register();
     }
 }
