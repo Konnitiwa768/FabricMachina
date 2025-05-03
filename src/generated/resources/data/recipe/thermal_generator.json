@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XWX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:netherrack"
+    },
+    "W": {
+      "item": "minecraft:iron_block"
+    },
+    "Y": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "item": "fabricmachina:thermal_generator",
+    "count": 1
+  }
+}
