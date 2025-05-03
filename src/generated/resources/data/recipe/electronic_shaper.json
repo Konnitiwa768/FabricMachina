@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XWX",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X"W: {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "Y": {
+      "item": "minecraft:coal"
+    }
+  },
+  "result": {
+    "item": "fabricmachina:electronic_shaper",
+    "count": 1
+  }
+}
