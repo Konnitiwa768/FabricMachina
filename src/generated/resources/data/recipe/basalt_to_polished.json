@@ -1,0 +1,10 @@
+{
+  "type": "fabricmachina:electronic_shape",
+  "input": {
+    "item": "minecraft:blackstone"
+  },
+  "output": {
+    "item": "minecraft:polished_blackstone",
+    "count": 2
+  }
+}
