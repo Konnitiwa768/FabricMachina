@@ -11,6 +11,10 @@ public class ModBlockEntities {
     public static BlockEntityType<WaterGeneratorBlock.GeneratorEntity> WATER_GENERATOR;
     public static BlockEntityType<CrusherBlock.CrusherEntity> CRUSHER;
     public static BlockEntityType<PowerPipeBlock.PipeEntity> POWER_PIPE;
+    public static BlockEntityType<ThermalGeneratorBlock.ThermalGeneratorEntity> THERMAL_GENERATOR = BlockEntityType.Builder.create(ThermalGeneratorBlock.ThermalGeneratorEntity::new, Blocks.STONE).build(null);
+
+    public static void registerBlockEntities() {
+        
 
     public static void register() {
         WATER_GENERATOR = Registry.register(
@@ -28,5 +32,10 @@ public class ModBlockEntities {
             new Identifier(ModMain.MOD_ID, "power_pipe"),
             BlockEntityType.Builder.create(PowerPipeBlock.PipeEntity::new, ModBlocks.POWER_PIPE).build(null)
         );
+        THERMALGENERATOR = ( 
+            Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("fabricmachina", "thermal_generator"), THERMAL_GENERATOR
+        );
+    }
+    }
     }
 }
